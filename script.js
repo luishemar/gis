@@ -1,12 +1,24 @@
-﻿// Inicializa el mapa
-var map = L.map('map').setView([51.505, -0.09], 13);
+// Inicializar el mapa
+const map = L.map('map', {
+    center: [40.4168, -3.7038], // Coordenadas de Madrid
+    zoom: 6,
+});
 
-// Agrega una capa de mapa
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+// Capa de OpenStreetMap
+const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '© OpenStreetMap'
+    attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Agrega un marcador
-var marker = L.marker([51.5, -0.09]).addTo(map);
-marker.bindPopup('<b>¡Hola mundo!</b><br>Estoy en Londres.').openPopup();
+// Capa de imagen del Instituto Geográfico de España
+const igeLayer = L.imageOverlay('URL_DE_LA_IMAGEN_DEL_IGE', [[40.5, -4], [40.3, -3.5]], {
+    opacity: 0.5
+});
+
+// Control de capas
+const baseMaps = {
+    "OpenStreetMap": osmLayer,
+    "IGE": igeLayer
+};
+
+L.control.layers(baseMaps).addTo(map);
