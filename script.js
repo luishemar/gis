@@ -11,7 +11,7 @@ const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 }).addTo(map);
 
 // Capa de imagen del Instituto Geográfico de España
-const igeLayer = L.imageOverlay('URL_DE_LA_IMAGEN_DEL_IGE', [[40.5, -4], [40.3, -3.5]], {
+const igeLayer = L.imageOverlay('https://tms-mapa-raster.ign.es/1.0.0/mapa-raster/{z}/{x}/{-y}.jpeg', [[40.5, -4], [40.3, -3.5]], {
     opacity: 0.5
 });
 
