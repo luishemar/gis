@@ -5,7 +5,7 @@ const map = L.map('map', {
 });
 
 // Capa de OpenStreetMap
-const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/-{y}.png', {
+const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 21,
     attribution: '© OpenStreetMap'
 }).addTo(map);
@@ -19,7 +19,8 @@ const ignLayerCarto = L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN
 // Capa imagen raster del Instituto Geográfico Nacional
 const ignLayerImg = L.tileLayer('https://tms-pnoa-ma.idee.es/1.0.0/pnoa-ma/{z}/{x}/{y}.jpeg', [[40.5, -4], [40.3, -3.5]], {
     maxZoom: 21,
-    attribution: '© IGN'
+    attribution: '© IGN',
+    tms: true
 });
 
 // Capa híbrida del Instituto Geográfico Nacional
