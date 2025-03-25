@@ -5,7 +5,7 @@ const map = L.map('map', {
 });
 
 // Capa de OpenStreetMap
-const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/-{y}.png', {
     maxZoom: 21,
     attribution: '© OpenStreetMap'
 }).addTo(map);
