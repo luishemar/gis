@@ -1,3 +1,30 @@
+function createTMSLayer(url, options) {
+    var tmsLayer = L.tileLayer(url, {
+        maxZoom: options.maxZoom || 18,
+        minZoom: options.minZoom || 0,
+        attribution: options.attribution || '© Tu fuente de datos',
+        noWrap: true // Esto puede ayudar a evitar problemas de envoltura
+    });
+
+    // Función para invertir el eje Y
+    function getInvertedY(z, y) {
+        return (Math.pow(2, z) - 1) - y;
+    }
+
+    // Sobrescribe el método de obtención de tiles
+    tmsLayer.getTileUrl = function (coords) {
+        var invertedY = getInvertedY(coords.z, coords.y);
+        return L.Util.template(this._url, L.extend({
+            s: this._getSubdomain(coords),
+            x: coords.x,
+            y: invertedY,
+            z: coords.z
+        }, this.options));
+    };
+
+    return tmsLayer;
+}
+
 // Inicializar el mapa
 const map = L.map('map', {
     center: [40.4168, -3.7038], // Coordenadas de Madrid
@@ -17,7 +44,7 @@ const ignLayerCarto = L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN
 });
 
 // Capa imagen raster del Instituto Geográfico Nacional
-const ignLayerImg = L.tileLayer('https://tms-pnoa-ma.idee.es/1.0.0/pnoa-ma/{z}/{x}/{y}.jpeg', [[40.5, -4], [40.3, -3.5]], {
+const ignLayerImg = L.createTMSLayer('https://tms-pnoa-ma.idee.es/1.0.0/pnoa-ma/{z}/{x}/{y}.jpeg', [[40.5, -4], [40.3, -3.5]], {
     maxZoom: 21,
     attribution: '© IGN',
     tms: true
