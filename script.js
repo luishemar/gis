@@ -10,8 +10,20 @@ const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-// Capa de imagen del Instituto Geográfico de España
-const ignLayer = L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}', [[40.5, -4], [40.3, -3.5]], {
+// Capa cartografia del Instituto Geográfico Nacional
+const ignLayerCarto = L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}', [[40.5, -4], [40.3, -3.5]], {
+    maxZoom: 21,
+    attribution: '© IGN'
+});
+
+// Capa imagen raster del Instituto Geográfico Nacional
+const ignLayerImg = L.tileLayer('https://tms-pnoa-ma.idee.es/1.0.0/pnoa-ma/{z}/{x}/{y}.jpeg', [[40.5, -4], [40.3, -3.5]], {
+    maxZoom: 21,
+    attribution: '© IGN'
+});
+
+// Capa híbrida del Instituto Geográfico Nacional
+const ignLayerHib = L.tileLayer('https://www.ign.es/wmts/ign-base?layer=IGNBaseOrto&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}', [[40.5, -4], [40.3, -3.5]], {
     maxZoom: 21,
     attribution: '© IGN'
 });
@@ -19,7 +31,9 @@ const ignLayer = L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN&styl
 // Control de capas
 const baseMaps = {
     "OpenStreetMap": osmLayer,
-    "IGN": ignLayer
+    "IGN Cartografía": ignLayerCarto,
+    "IGN Imagen": ignLayerImg,
+    "IGN Híbrido": ignLayerHib
 };
 
 L.control.layers(baseMaps).addTo(map);
