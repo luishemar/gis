@@ -8,3 +8,35 @@ h1 {
     text-align: center;
     margin: 20px 0;
 }
+
+#map {
+    height: 600px; /* Altura del mapa */
+}
+
+#searchContainer {
+    position: absolute;
+    top: 87px; /* Distancia desde la parte superior */
+    left: 50px; /* Distancia desde la izquierda */
+    z-index: 1000; /* Asegúrate de que esté por encima del mapa */
+    background: white; /* Fondo blanco para el cuadro de búsqueda */
+    padding: 5px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Sombra para el cuadro */
+}
+
+#results {
+    list-style-type: none; /* Sin viñetas */
+    padding: 0; /* Sin padding */
+    margin: 0; /* Sin margen */
+    max-height: 200px; /* Altura máxima para la lista */
+    overflow-y: auto; /* Desplazamiento vertical si es necesario */
+}
+
+#results li {
+    padding: 5px; /* Espaciado interno para los elementos de la lista */
+    cursor: pointer; /* Cambia el cursor al pasar sobre los elementos */
+}
+
+#results li:hover {
+    background-color: #f0f0f0; /* Color de fondo al pasar el mouse */
+}

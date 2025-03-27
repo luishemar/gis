@@ -1,5 +1,4 @@
 
-
 // Inicializar el mapa
 const map = L.map('map', {
     center: [40.4168, -3.7038], // Coordenadas de Madrid
@@ -24,11 +23,19 @@ const ignLayerImg = L.tileLayer('https://tms-pnoa-ma.idee.es/1.0.0/pnoa-ma/{z}/{
     attribution: '© IGN'
 });
 
-// Capa híbrida del Instituto Geográfico Nacional
-const ignLayerHib = L.tileLayer('https://www.ign.es/wmts/ign-base?layer=IGNBaseOrto&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}', [[40.5, -4], [40.3, -3.5]], {
+// Capa callejero transparente del Instituto Geográfico Nacional
+const ignLayerXpar = L.tileLayer('https://www.ign.es/wmts/ign-base?layer=IGNBaseOrto&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}', [[40.5, -4], [40.3, -3.5]], {
     maxZoom: 21,
-    attribution: '© IGN'
+    attribution: '© IGN',
+    transparent: true,
+    format: 'image/png'
 });
+
+// Capa híbrida creada por superposición de dos capas
+const ignLayerHib = L.layerGroup([
+    ignLayerImg,
+    ignLayerXpar
+])
 
 // Control de capas
 const baseMaps = {
@@ -37,5 +44,36 @@ const baseMaps = {
     "IGN Imagen": ignLayerImg,
     "IGN Híbrido": ignLayerHib
 };
+
+document.getElementById('searchButton').addEventListener('click', function() {
+    var query = document.getElementById('search').value;
+    if (query) {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=10&q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                clearResults();
+
+                if (data.length > 0) {
+                    data.forEach(result => {
+                        var li = document.createElement('li');
+                        li.textContent = result.display_name;
+                        li.onclick = function() {
+                            map.setView([result.lat, result.lon], 16);
+                            clearResults();
+                        };
+                        document.getElementById('results').appendChild(li);
+                    });
+                } else {
+                    alert('No se encontraron resultados.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+});
+
+function clearResults() {
+    document.getElementById('results').innerHTML = '';
+}
+
 
 L.control.layers(baseMaps).addTo(map);
