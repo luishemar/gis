@@ -1,4 +1,7 @@
 
+document.addEventListener('DOMContentLoaded', function() {
+
+
 // Inicializar el mapa
 const map = L.map('map', {
     center: [40.4168, -3.7038], // Coordenadas de Madrid
@@ -127,3 +130,5 @@ function ubicarUsuario() {
 
 
 L.control.layers(baseMaps).addTo(map);
+
+});
