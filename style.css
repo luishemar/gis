@@ -8,6 +8,7 @@
 #toolbar {
     background-color: #333; /* Color gris oscuro */
     color: white; /* Color del texto */
+    height: 40px;
     padding: 10px; /* Espaciado interno */
     position: relative; /* Posición relativa para el contenedor */
 }
@@ -18,12 +19,12 @@ h1 {
 }
 
 #map {
-    height: calc(100vh - 60px); /* Altura del mapa, restando la altura de la barra de herramientas */
+    height: calc(100vh - 50px); /* Altura del mapa, restando la altura de la barra de herramientas */
 }
 
 #searchContainer {
     position: absolute;
-    top: 10px; /* Distancia desde la parte superior */
+    top: 70px; /* Distancia desde la parte superior */
     left: 50px; /* Centrar horizontalmente */
     z-index: 1000; /* Asegúrate de que esté por encima del mapa */
     background: white; /* Fondo blanco para el cuadro de búsqueda */
@@ -43,7 +44,7 @@ h1 {
 #clearButton {
     position: absolute; /* Posición absoluta dentro del campo de texto */
     left: 195px; /* Alinear a la izquierda */
-    top: 2px;
+    top: 5px;
     font-size: 25px; /* Tamaño del ícono */
     color: #888; /* Color del ícono */
     cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
