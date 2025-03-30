@@ -32,13 +32,13 @@ h1 {
     padding: 5px; /* Espaciado interno */
     border: 1px solid #ccc; /* Borde del campo de texto */
     border-radius: 4px; /* Bordes redondeados */
-    width: 400px; /* Ancho del campo de texto */
+    width: 300px; /* Ancho del campo de texto */
     position: relative; /* Para posicionar el ícono de aspa */
 }
 
 #clearButton {
     position: absolute; /* Posición absoluta dentro del campo de texto */
-    left: 395px; /* Alinear a la izquierda */
+    left: 295px; /* Alinear a la izquierda */
     top: 2px;
     font-size: 25px; /* Tamaño del ícono */
     color: #888; /* Color del ícono */
