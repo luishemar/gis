@@ -24,9 +24,9 @@ h1 {
 
 #searchContainer {
     position: absolute;
-    top: 70px; /* Distancia desde la parte superior */
+    top: 72px; /* Distancia desde la parte superior */
     left: 50px; /* Centrar horizontalmente */
-    z-index: 1000; /* Asegúrate de que esté por encima del mapa */
+    z-index: 800; /* Asegúrate de que esté por encima del mapa */
     background: white; /* Fondo blanco para el cuadro de búsqueda */
     padding: 5px; /* Espaciado interno */
     border-radius: 4px; /* Bordes redondeados */
@@ -58,6 +58,10 @@ h1 {
     margin-left: 10px; /* Espaciado a la izquierda del botón */
 }
 
+#searchButton:hover {
+    background-color: #cccccc; /* Color de fondo al pasar el mouse */
+}
+
 #results {
     list-style-type: none; /* Sin viñetas */
     padding: 0; /* Sin padding */
@@ -72,7 +76,7 @@ h1 {
 }
 
 #results li:hover {
-    background-color: #f0f0f0; /* Color de fondo al pasar el mouse */
+    background-color: #cccccc; /* Color de fondo al pasar el mouse */
 }
 
 #locateButton {
@@ -85,12 +89,12 @@ h1 {
     padding: 10px; /* Espaciado interno */
     cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Sombra para el botón */
-    z-index: 2000; /* Asegúrate de que esté por encima del mapa */
+    z-index: 1000; /* Asegúrate de que esté por encima del mapa */
     display: flex; /* Asegúrate de que se muestre correctamente */
     align-items: center; /* Centrar verticalmente */
     justify-content: center; /* Centrar horizontalmente */
 }
 
 #locateButton:hover {
-    background-color: #f0f0f0; /* Color de fondo al pasar el mouse */
+    background-color: #cccccc; /* Color de fondo al pasar el mouse */
 }

@@ -129,6 +129,35 @@ function ubicarUsuario() {
 }
 
 
+
+// Función para cargar coordenadas desde un archivo JSON
+function cargarCoordenadas() {
+    fetch('coordenadas.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al cargar el archivo JSON');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Procesar los datos
+            data.forEach(lugar => {
+                // Añadir un marcador en el mapa para cada lugar
+                L.marker([lugar.latitud, lugar.longitud])
+                    .addTo(map)
+                    .bindPopup(lugar.nombre);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+
+
 L.control.layers(baseMaps).addTo(map);
+
+// Llamar a la función para cargar las coordenadas
+cargarCoordenadas();
 
 });
