@@ -84,7 +84,7 @@ h1 {
     padding: 10px; /* Espaciado interno */
     cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Sombra para el botón */
-    z-index: 1000; /* Asegúrate de que esté por encima del mapa */
+    z-index: 2000; /* Asegúrate de que esté por encima del mapa */
     display: flex; /* Asegúrate de que se muestre correctamente */
     align-items: center; /* Centrar verticalmente */
     justify-content: center; /* Centrar horizontalmente */
