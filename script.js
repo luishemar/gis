@@ -115,8 +115,6 @@ function ubicarUsuario() {
                 const lon = position.coords.longitude;
                 map.setView([lat, lon], 16); // Centrar el mapa en la ubicación del usuario
                 L.marker([lat, lon]).addTo(map) // Añadir un marcador en la ubicación
-                    .bindPopup('Estás aquí')
-                    .openPopup();
             },
             () => {
                 alert('No se pudo obtener la ubicación.');
