@@ -98,3 +98,10 @@ h1 {
 #locateButton:hover {
     background-color: #cccccc; /* Color de fondo al pasar el mouse */
 }
+
+
+.custom-icon {
+    background: white;
+    border-radius: 50%;
+    /*border: 2px solid blue; /* Cambia el color del borde si lo deseas */
+}
