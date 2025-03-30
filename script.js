@@ -11,7 +11,7 @@ const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-// Capa cartografia del Instituto Geográfico Nacional
+// Capa cartografía del Instituto Geográfico Nacional
 const ignLayerCarto = L.tileLayer('https://www.ign.es/wmts/mapa-raster?layer=MTN&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}', [[40.5, -4], [40.3, -3.5]], {
     maxZoom: 21,
     attribution: '© IGN'
@@ -37,7 +37,7 @@ const ignLayerHib = L.layerGroup([
     ignLayerXpar
 ])
 
-// Control de capas
+// Control de selección de capas
 const baseMaps = {
     "OpenStreetMap": osmLayer,
     "IGN Cartografía": ignLayerCarto,
@@ -45,35 +45,38 @@ const baseMaps = {
     "IGN Híbrido": ignLayerHib
 };
 
-document.getElementById('searchButton').addEventListener('click', performSearch);
+
+
+// Eventos para lanzar la geocodificación
+document.getElementById('searchButton').addEventListener('click', lanzarGeocod);
 document.getElementById('search').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
-        performSearch();
+        lanzarGeocod();
     }
 });
 
-// Evento para el ícono de aspa
-const clearButton = document.getElementById('clearButton');
+// Eventos para el icono de aspa
 const searchInput = document.getElementById('search');
+const clearButton = document.getElementById('clearButton');
 
 searchInput.addEventListener('input', function() {
-    clearButton.style.display = searchInput.value ? 'inline' : 'none'; // Mostrar u ocultar el ícono
+    clearButton.style.display = searchInput.value ? 'inline' : 'none'; // Mostrar u ocultar el icono aspa
 });
 
 clearButton.addEventListener('click', function() {
     searchInput.value = ''; // Borrar el contenido del campo de búsqueda
-    clearButton.style.display = 'none'; // Ocultar el ícono
-    clearResults(); // Borra la lista de resultados
+    clearButton.style.display = 'none'; // Ocultar el icono
+    limpiarResultados(); // Borra la lista de resultados
 });
 
-// Función para realizar la búsqueda
-function performSearch() {
+// Función para realizar la geocodificación
+function lanzarGeocod() {
     var query = document.getElementById('search').value;
     if (query) {
         fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=10&q=${encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(data => {
-                clearResults();
+                limpiarResultados();
 
                 if (data.length > 0) {
                     data.forEach(result => {
@@ -81,7 +84,7 @@ function performSearch() {
                         li.textContent = result.display_name;
                         li.onclick = function() {
                             map.setView([result.lat, result.lon], 16);
-                            clearResults();
+                            limpiarResultados();
                         };
                         document.getElementById('results').appendChild(li);
                     });
@@ -93,8 +96,35 @@ function performSearch() {
     }
 }
 
-function clearResults() {
+// Función para limpiar resultados de geocodificación
+function limpiarResultados() {
     document.getElementById('results').innerHTML = '';
+}
+
+
+
+// Evento para el botón de ubicación
+document.getElementById('locateButton').addEventListener('click', ubicarUsuario);
+
+// Función para ubicar al usuario
+function ubicarUsuario() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                map.setView([lat, lon], 16); // Centrar el mapa en la ubicación del usuario
+                L.marker([lat, lon]).addTo(map) // Añadir un marcador en la ubicación
+                    .bindPopup('Estás aquí')
+                    .openPopup();
+            },
+            () => {
+                alert('No se pudo obtener la ubicación.');
+            }
+        );
+    } else {
+        alert('La geolocalización no es soportada por este navegador.');
+    }
 }
 
 
