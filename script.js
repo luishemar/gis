@@ -45,7 +45,29 @@ const baseMaps = {
     "IGN Híbrido": ignLayerHib
 };
 
-document.getElementById('searchButton').addEventListener('click', function() {
+document.getElementById('searchButton').addEventListener('click', performSearch);
+document.getElementById('search').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        performSearch();
+    }
+});
+
+// Evento para el ícono de aspa
+const clearButton = document.getElementById('clearButton');
+const searchInput = document.getElementById('search');
+
+searchInput.addEventListener('input', function() {
+    clearButton.style.display = searchInput.value ? 'inline' : 'none'; // Mostrar u ocultar el ícono
+});
+
+clearButton.addEventListener('click', function() {
+    searchInput.value = ''; // Borrar el contenido del campo de búsqueda
+    clearButton.style.display = 'none'; // Ocultar el ícono
+    clearResults(); // Borra la lista de resultados
+});
+
+// Función para realizar la búsqueda
+function performSearch() {
     var query = document.getElementById('search').value;
     if (query) {
         fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=10&q=${encodeURIComponent(query)}`)
@@ -69,7 +91,7 @@ document.getElementById('searchButton').addEventListener('click', function() {
             })
             .catch(error => console.error('Error:', error));
     }
-});
+}
 
 function clearResults() {
     document.getElementById('results').innerHTML = '';
