@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             var li = document.createElement('li');
                             li.textContent = result.display_name;
                             li.onclick = function() {
-                                map.setView([result.lat, result.lon], 16);
+                                //map.setView([result.lat, result.lon], 16);
+                                map.flyTo([result.lat, result.lon], 16);
                                 limpiarResultados();
                             };
                             document.getElementById('results').appendChild(li);
