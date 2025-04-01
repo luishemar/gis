@@ -1,4 +1,7 @@
 
+// Variable global para almacenar el marcador de ubicación
+let userLocationMarker = null;
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Inicializar el mapa
@@ -116,11 +119,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
                     map.setView([lat, lon], 16); // Centrar el mapa en la ubicación del usuario
-                    L.marker([lat, lon], { icon: iconMyLocation }).addTo(map) // Añadir un marcador en la ubicación
+
+                    // Si ya existe un marcador, elimínalo
+                    if (userLocationMarker) {
+                        map.removeLayer(userLocationMarker);
+                    }
+                    
+                    // Crear un nuevo marcador en la ubicación del usuario
+                    userLocationMarker = L.marker([lat, lon], { icon: iconMyLocation }).addTo(map);
                 },
                 () => {
                     alert('No se pudo obtener la ubicación.');
-                }
+                },
+                {
+                    enableHighAccuracy: true, // Intenta obtener la ubicación más precisa
+                    timeout: 5000, // Tiempo de espera para obtener la ubicación
+                    maximumAge: 0 // No usar una ubicación en caché
+                }                
             );
         } else {
             alert('La geolocalización no es soportada por este navegador.');
@@ -141,6 +156,11 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 // Añadir la capa GeoJSON al mapa
                 L.geoJSON(data, {
+                    pointToLayer: function (feature, latlng) {
+                        // Obtener el icono según la clasificación
+                        const icon = iconMap[feature.properties.clasificacion] || iconMap['default'];
+                        return L.marker(latlng, { icon: icon });
+                    },
                     onEachFeature: function (feature, layer) {
                         // Agregar un popup con el nombre y la URL
                         if (feature.properties && feature.properties.nombre) {

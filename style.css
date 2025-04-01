@@ -19,7 +19,7 @@ h1 {
 }
 
 #map {
-    height: calc(100vh - 50px); /* Altura del mapa, restando la altura de la barra de herramientas */
+    height: calc(100vh - 60px); /* Altura del mapa, restando la altura de la barra de herramientas */
 }
 
 #searchContainer {
@@ -99,9 +99,13 @@ h1 {
     background-color: #cccccc; /* Color de fondo al pasar el mouse */
 }
 
+.myLocation-icon {
+    background: white;
+    border-radius: 50%;
+}
 
 .custom-icon {
     background: white;
-    border-radius: 50%;
+    border-radius: 25%;
     /*border: 2px solid blue; /* Cambia el color del borde si lo deseas */
 }
