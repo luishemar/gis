@@ -133,8 +133,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert('No se pudo obtener la ubicación.');
                 },
                 {
-                    enableHighAccuracy: true, // Intenta obtener la ubicación más precisa
-                    timeout: 5000, // Tiempo de espera para obtener la ubicación
+                    //enableHighAccuracy: true, // Intenta obtener la ubicación más precisa
+                    timeout: 10000, // Tiempo de espera para obtener la ubicación
                     maximumAge: 0 // No usar una ubicación en caché
                 }                
             );
