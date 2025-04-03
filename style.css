@@ -101,7 +101,7 @@ h1 {
 
 /* Desactivar hover en pantallas táctiles */
 @media (hover: none) {
-    locateButton:hover {
+    #locateButton:hover {
         background-color: white; /* Restablecer el color de fondo */
     }
 }
