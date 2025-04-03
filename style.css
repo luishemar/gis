@@ -56,10 +56,11 @@ h1 {
 
 #searchButton {
     margin-left: 10px; /* Espaciado a la izquierda del botón */
+    background-color: #eee;
 }
 
 #searchButton:hover {
-    background-color: #cccccc; /* Color de fondo al pasar el mouse */
+    background-color: #ccc; /* Color de fondo al pasar el mouse */
 }
 
 #results {
@@ -101,6 +102,9 @@ h1 {
 
 /* Desactivar hover en pantallas táctiles */
 @media (hover: none) {
+    #searchButton:hover {
+        background-color: grey;
+    };
     #locateButton:hover {
         background-color: white; /* Restablecer el color de fondo */
     }
