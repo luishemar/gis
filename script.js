@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 (position) => {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
-                    map.setView([lat, lon], 16); // Centrar el mapa en la ubicación del usuario
-
+                    //map.setView([lat, lon], 16); // Centrar el mapa en la ubicación del usuario
+                    map.flyTo([lat, lon], 16); // Centrar el mapa en la ubicación del usuario
                     // Si ya existe un marcador, elimínalo
                     if (userLocationMarker) {
                         map.removeLayer(userLocationMarker);
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert('No se pudo obtener la ubicación.');
                 },
                 {
-                //    enableHighAccuracy: true, // Intenta obtener la ubicación más precisa
+                    //enableHighAccuracy: true, // Intenta obtener la ubicación más precisa
                     timeout: 20000, // Tiempo de espera para obtener la ubicación
                     maximumAge: 0 // No usar una ubicación en caché
                 }                
