@@ -99,6 +99,13 @@ h1 {
     background-color: #cccccc; /* Color de fondo al pasar el mouse */
 }
 
+/* Desactivar hover en pantallas táctiles */
+@media (hover: none) {
+    locateButton:hover {
+        background-color: white; /* Restablecer el color de fondo */
+    }
+}
+
 .myLocation-icon {
     background: white;
     border-radius: 50%;
