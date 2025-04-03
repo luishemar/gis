@@ -103,8 +103,10 @@ h1 {
 /* Desactivar hover en pantallas táctiles */
 @media (hover: none) {
     #searchButton:hover {
-        background-color: grey;
-    };
+        background-color: #eee;
+    }
+}
+@media (hover: none) {
     #locateButton:hover {
         background-color: white; /* Restablecer el color de fondo */
     }
