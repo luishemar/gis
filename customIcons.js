@@ -8,18 +8,34 @@ var iconMyLocation = L.divIcon({
 });
 
 
-// Icono para AS-PDI
-var iconAS_PDI = L.divIcon({
+// Icono para Ruta
+var iconRuta = L.divIcon({
     className: 'custom-icon',
-    html: '<div style="color: blue;"><i class="material-icons" style="font-size: 24px;">star</i></div>', // Ejemplo de icono
+    html: '<div style="color: blue;"><i class="material-icons" style="font-size: 24px;">moving</i></div>', // Ejemplo de icono
     iconSize: [24, 24],
     iconAnchor: [12, 12]
 });
 
-// Icono para LU-PDI
-var iconLU_PDI = L.divIcon({
+// Icono para Ruta-AS
+var iconRuta_AS = L.divIcon({
     className: 'custom-icon',
-    html: '<div style="color: green;"><i class="material-icons" style="font-size: 24px;">place</i></div>', // Ejemplo de icono
+    html: '<div style="color: red;"><i class="material-icons" style="font-size: 24px;">moving</i></div>', // Ejemplo de icono
+    iconSize: [24, 24],
+    iconAnchor: [12, 12]
+});
+
+// Icono para LDI
+var iconLDI = L.divIcon({
+    className: 'custom-icon',
+    html: '<div style="color: blue;"><i class="material-icons" style="font-size: 24px;">local_activity</i></div>', // Ejemplo de icono
+    iconSize: [24, 24],
+    iconAnchor: [12, 12]
+});
+
+// Icono para LDI-AS
+var iconLDI_AS = L.divIcon({
+    className: 'custom-icon',
+    html: '<div style="color: red;"><i class="material-icons" style="font-size: 24px;">local_activity</i></div>', // Ejemplo de icono
     iconSize: [24, 24],
     iconAnchor: [12, 12]
 });
@@ -34,7 +50,9 @@ var iconDefault = L.divIcon({
 
 // Mapeo de clasificaciones a iconos
 var iconMap = {
-    'AS-PDI': iconAS_PDI,
-    'LU-PDI': iconLU_PDI,
+    'Ruta':     iconRuta,
+    'Ruta_AS':  iconRuta_AS,
+    'LDI':      iconLDI,
+    'LDI_AS':   iconLDI_AS, 
     'default': iconDefault // Para otros tipos
 };

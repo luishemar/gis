@@ -2,9 +2,12 @@
 "type": "FeatureCollection",
 "name": "ldis",
 "features": [
-{ "type": "Feature", "properties": { "nombre": "Lugar 1", "clasificacion": "AS-PDI", "url": "https://www.google.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.7038, 40.4168 ] } },
-{ "type": "Feature", "properties": { "nombre": "Lugar 2", "clasificacion": "LU-PDI", "url": "https://www.google.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.8196, 40.4372 ] } },
-{ "type": "Feature", "properties": { "nombre": "Lugar 3", "clasificacion": "PP-PDI", "url": "https://www.google.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.6885, 40.448 ] } },
-{ "type": "Feature", "properties": { "nombre": "Hola", "clasificacion": "AS-PDI", "url": "https://www.google.com" }, "geometry": { "type": "Point", "coordinates": [ -3.786833786863271, 40.412409886058981 ] } }
+{ "type": "Feature", "properties": { "nombre": "Lugar 1", "clasificacion": "Ruta", "url": "https://www.google.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.7038, 40.4168 ] } },
+{ "type": "Feature", "properties": { "nombre": "Lugar 2", "clasificacion": "Ruta_AS", "url": "https://www.google.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.8196, 40.4372 ] } },
+{ "type": "Feature", "properties": { "nombre": "Lugar 1", "clasificacion": "LDI", "url": "https://www.google.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.8038, 40.4168 ] } },
+{ "type": "Feature", "properties": { "nombre": "Lugar 2", "clasificacion": "LDI_AS", "url": "https://www.google.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.9196, 40.4372 ] } },
+{ "type": "Feature", "properties": { "nombre": "Lugar 3", "clasificacion": "Ruta", "url": "https://www.google.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.6885, 40.448 ] } },
+{ "type": "Feature", "properties": { "nombre": "Hola", "clasificacion": "Otro", "url": "https://www.google.com" }, "geometry": { "type": "Point", "coordinates": [ -3.786833786863271, 40.412409886058981 ] } },
+{ "type": "Feature", "properties": { "nombre": "Talamanca de Jarama", "clasificacion": "LDI", "url": "https:\/\/www.talamancadejarama.org\/informacion-de-interes\/turismo-2\/" }, "geometry": { "type": "Point", "coordinates": [ -3.512119362578233, 40.745443635615942 ] } }
 ]
 }
