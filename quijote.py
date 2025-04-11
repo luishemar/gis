@@ -1,3 +1,4 @@
+import requests
 import string
 import json
 import random
@@ -5,8 +6,16 @@ from datetime import datetime, timedelta
 
 # Función para limpiar el texto y dividirlo en grupos de 10 palabras
 def process_text(file_path):
-    with open(file_path, "r", encoding="utf-8-sig") as file:
-        text = file.read()
+    try:
+        with open(file_path, "r", encoding="utf-8-sig") as file:
+            text = file.read()
+    except FileNotFoundError:
+        print(f"Error: El archivo {file_path} no se encontró.")
+        return []
+    except Exception as e:
+        print(f"Error al leer el archivo {file_path}: {e}")
+        return []
+
     text = text.translate(str.maketrans("", "", string.punctuation))
     words = text.split()
     grouped_words = [words[i:i + 10] for i in range(0, len(words), 10)]
@@ -28,11 +37,27 @@ def generate_phone_numbers(count):
         phone_numbers.add(phone_number)
     return list(phone_numbers)
 
+
+# URL del texto de Don Quijote en Proyecto Gutenberg
+url = "https://www.gutenberg.org/files/2000/2000-0.txt"
+
+# Hacer la solicitud GET
+response = requests.get(url)
+
+# Guardar el contenido en un archivo
+with open("don_quijote.txt", "w", encoding="utf-8") as file:
+    file.write(response.text)
+
+print("El texto de Don Quijote ha sido descargado.")
+
 # Ruta del archivo de texto
 file_path = "don_quijote.txt"
 
 # Procesar el texto
 grouped_words = process_text(file_path)
+if not grouped_words:
+    print("No se pudieron procesar las palabras. Saliendo del programa.")
+    exit(1)
 
 # Seleccionar los primeros 35,000 grupos
 num_groups = 35000
@@ -76,8 +101,9 @@ for group in repeated_groups:
 
 # Guardar en un archivo JSON
 output_file = "don_quijote_repeated_with_coordinates_and_timestamps.json"
-with open(output_file, "w", encoding="utf-8") as json_file:
-    json.dump(json_data, json_file, ensure_ascii=False, indent=4)
-
-print(f"Se han guardado {len(json_data)} registros en el archivo {output_file}.")
-
+try:
+    with open(output_file, "w", encoding="utf-8") as json_file:
+        json.dump(json_data, json_file, ensure_ascii=False, indent=4)
+    print(f"Se han guardado {len(json_data)} registros en el archivo {output_file}.")
+except Exception as e:
+    print(f"Error al guardar el archivo {output_file}: {e}")
