@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (feature.properties.url2) {
                                 popupContenido = popupContenido + `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
                             }
+                            console.log(popupContenido)
                             layer.bindPopup(popupContenido);
                         }
                     }
