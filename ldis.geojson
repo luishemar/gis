@@ -10,6 +10,6 @@
 { "type": "Feature", "properties": { "nombre": "Hola", "clasificacion": "Otro", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.786833786863271, 40.412409886058981 ] } },
 { "type": "Feature", "properties": { "nombre": "Talamanca de Jarama", "clasificacion": "LDI", "telefono": "", "url1": "https://www.talamancadejarama.org/informacion-de-interes/turismo-2/", "url2": "https://www.visitasguiadastalamancadejarama.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.512119362578233, 40.745443635615942 ] } },
 { "type": "Feature", "properties": { "nombre": "Galapagar", "clasificacion": "LDI_AS", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.925227441082327, 40.608036576070859 ] } },
-{ "type": "Feature", "properties": { "nombre": "Manadero", "clasificacion": "Ruta", "telefono": "", "url1": "https://guadarramista.blogspot.com/2023/11/manadero-del-aguisejo-sima-de.html", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.249448620921049, 41.304622167100469 ] } }
+{ "type": "Feature", "properties": { "nombre": "Manadero del Aguisejo, Sima de Villacadima, Villacadima, Cueva del Agua", "clasificacion": "Ruta", "telefono": "", "url1": "https://guadarramista.blogspot.com/2023/11/manadero-del-aguisejo-sima-de.html", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.249448620921049, 41.304622167100469 ] } }
 ]
 }
