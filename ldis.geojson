@@ -2,14 +2,10 @@
 "type": "FeatureCollection",
 "name": "ldis",
 "features": [
-{ "type": "Feature", "properties": { "nombre": "Lugar 1", "clasificacion": "Ruta", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.7038, 40.4168 ] } },
-{ "type": "Feature", "properties": { "nombre": "Lugar 2", "clasificacion": "Ruta_AS", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.8196, 40.4372 ] } },
-{ "type": "Feature", "properties": { "nombre": "Lugar 1", "clasificacion": "LDI", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.8038, 40.4168 ] } },
-{ "type": "Feature", "properties": { "nombre": "Lugar 2", "clasificacion": "LDI_AS", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.9196, 40.4372 ] } },
-{ "type": "Feature", "properties": { "nombre": "Lugar 3", "clasificacion": "Ruta", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.6885, 40.448 ] } },
 { "type": "Feature", "properties": { "nombre": "Hola", "clasificacion": "Otro", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.786833786863271, 40.412409886058981 ] } },
 { "type": "Feature", "properties": { "nombre": "Talamanca de Jarama", "clasificacion": "LDI", "telefono": "", "url1": "https://www.talamancadejarama.org/informacion-de-interes/turismo-2/", "url2": "https://www.visitasguiadastalamancadejarama.es/" }, "geometry": { "type": "Point", "coordinates": [ -3.512119362578233, 40.745443635615942 ] } },
-{ "type": "Feature", "properties": { "nombre": "Galapagar", "clasificacion": "LDI_AS", "telefono": "", "url1": "", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.925227441082327, 40.608036576070859 ] } },
-{ "type": "Feature", "properties": { "nombre": "Manadero del Aguisejo, Sima de Villacadima, Villacadima, Cueva del Agua", "clasificacion": "Ruta", "telefono": "", "url1": "https://guadarramista.blogspot.com/2023/11/manadero-del-aguisejo-sima-de.html", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.249448620921049, 41.304622167100469 ] } }
+{ "type": "Feature", "properties": { "nombre": "Manadero del Aguisejo, Sima de Villacadima, Villacadima, Cueva del Agua", "clasificacion": "Ruta", "telefono": "", "url1": "https://guadarramista.blogspot.com/2023/11/manadero-del-aguisejo-sima-de.html", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -3.249448620921049, 41.304622167100469 ] } },
+{ "type": "Feature", "properties": { "nombre": "Presa de Buendía a la Ermita de la Virgen de los Desamparados", "clasificacion": "Ruta_AS", "telefono": "", "url1": "https://www.instagram.com/reel/DFhc5xkMXsg/?igsh=MTg0OWtzc3lxM2g1MQ%3D%3D", "url2": "https://es.wikiloc.com/rutas-senderismo/presa-de-buendia-a-la-ermita-de-la-virgen-de-los-desamparados-117624693" }, "geometry": { "type": "Point", "coordinates": [ -2.784118654534152, 40.400289907949208 ] } },
+{ "type": "Feature", "properties": { "nombre": "Cívica", "clasificacion": "LDI_AS", "telefono": "", "url1": "https://www.instagram.com/reel/DFfu0Emth1c/?igsh=NG92aDlyaWhzZW9v", "url2": "" }, "geometry": { "type": "Point", "coordinates": [ -2.784594815961767, 40.801935779203923 ] } }
 ]
 }
