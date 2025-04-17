@@ -176,10 +176,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                 popupContenido = `<br>${feature.properties.telefono}`;
                             }
                             if (feature.properties.url1) {
-                               popupContenido = popupContenido + `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`);
+                               popupContenido = popupContenido + `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
                             }
                             if (feature.properties.url2) {
-                                popupContenido = popupContenido + `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`);
+                                popupContenido = popupContenido + `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
                             }
                             layer.bindPopup(popupContenido);
                         }
