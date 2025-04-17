@@ -170,10 +170,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                 popupContenido = `<strong>${feature.properties.nombre}</strong>`;
                             }
                             if (feature.properties.clasificacion) {
-                                popupContenido = `<br>${feature.properties.clasificacion}`;
+                                popupContenido = popupContenido + `<br>${feature.properties.clasificacion}`;
                             }
                             if (feature.properties.telefono) {
-                                popupContenido = `<br>${feature.properties.telefono}`;
+                                popupContenido = popupContenido + `<br>${feature.properties.telefono}`;
                             }
                             if (feature.properties.url1) {
                                popupContenido = popupContenido + `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
