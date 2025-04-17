@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
         "IGN Híbrido": ignLayerHib
     };
     
-    
-    
+
+
     // Eventos para lanzar la geocodificación
     document.getElementById('searchButton').addEventListener('click', lanzarGeocod);
     document.getElementById('search').addEventListener('keypress', function(event) {
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Eventos para el icono de aspa
+    // Eventos para el icono de aspa de la caja de geocodificación
     const searchInput = document.getElementById('search');
     const clearButton = document.getElementById('clearButton');
     
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clearButton.style.display = 'none'; // Ocultar el icono
         limpiarResultados(); // Borra la lista de resultados
     });
-    
+
     // Función para realizar la geocodificación
     function lanzarGeocod() {
         var query = document.getElementById('search').value;
@@ -163,9 +163,25 @@ document.addEventListener('DOMContentLoaded', function() {
                         return L.marker(latlng, { icon: icon });
                     },
                     onEachFeature: function (feature, layer) {
-                        // Agregar un popup con el nombre y la URL
-                        if (feature.properties && feature.properties.nombre) {
-                            layer.bindPopup(`<strong>${feature.properties.nombre}</strong><br><a href="${feature.properties.url}" target="_blank">Más información</a>`);
+                        // Agregar un popup con el nombre y el resto de datos
+                        if (feature.properties) {
+                            popupContenido = ''
+                            if (feature.properties.nombre) {
+                                popupContenido = `<strong>${feature.properties.nombre}</strong>`;
+                            }
+                            if (feature.properties.clasificacion) {
+                                popupContenido = `<br>${feature.properties.clasificacion}`;
+                            }
+                            if (feature.properties.telefono) {
+                                popupContenido = `<br>${feature.properties.telefono}`;
+                            }
+                            if (feature.properties.url1) {
+                               popupContenido = popupContenido + `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`);
+                            }
+                            if (feature.properties.url2) {
+                                popupContenido = popupContenido + `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`);
+                            }
+                            layer.bindPopup(popupContenido);
                         }
                     }
                 }).addTo(map);
