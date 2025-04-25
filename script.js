@@ -2,6 +2,10 @@
 // Variable global para almacenar el marcador de ubicación
 let userLocationMarker = null;
 
+// Array para almacenar los features
+let geojsonFeatures = [];
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Inicializar el mapa
@@ -155,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
+                geojsonFeatures = data.features; // Almacenar los features
                 // Añadir la capa GeoJSON al mapa
                 L.geoJSON(data, {
                     pointToLayer: function (feature, latlng) {
@@ -163,33 +168,71 @@ document.addEventListener('DOMContentLoaded', function() {
                         return L.marker(latlng, { icon: icon });
                     },
                     onEachFeature: function (feature, layer) {
-                        // Agregar un popup con el nombre y el resto de datos
-                        if (feature.properties) {
-                            popupContenido = ''
-                            if (feature.properties.nombre) {
-                                popupContenido = `<strong>${feature.properties.nombre}</strong>`;
-                            }
-                            if (feature.properties.clasificacion) {
-                                popupContenido = popupContenido + `<br>${feature.properties.clasificacion}`;
-                            }
-                            if (feature.properties.telefono) {
-                                popupContenido = popupContenido + `<br>${feature.properties.telefono}`;
-                            }
-                            if (feature.properties.url1) {
-                               popupContenido = popupContenido + `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
-                            }
-                            if (feature.properties.url2) {
-                                popupContenido = popupContenido + `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
-                            }
-                            console.log(popupContenido)
-                            layer.bindPopup(popupContenido);
-                        }
+                        layer.on('click', function() {
+                            mostrarPopupPaginado(feature, layer);
+                        });
                     }
                 }).addTo(map);
             })
             .catch(error => console.error('Error al cargar el archivo GeoJSON:', error));
     }
+
+    function mostrarPopupPaginado(clickedFeature, clickedLayer) {
+        const featuresInSameLocation = geojsonFeatures.filter(feature => {
+            return feature.geometry.coordinates[0] === clickedFeature.geometry.coordinates[0] &&
+                feature.geometry.coordinates[1] === clickedFeature.geometry.coordinates[1];
+        });
     
+        const itemsPerPage = 3; // Número de items por página
+        let currentPage = 0;
+    
+        function renderPage(page) {
+            const start = page * itemsPerPage;
+            const end = start + itemsPerPage;
+            const itemsToShow = featuresInSameLocation.slice(start, end);
+    
+            let popupContent = '<div>';
+            itemsToShow.forEach(feature => {
+                popupContent += `<strong>${feature.properties.nombre || 'Sin nombre'}</strong>`;
+                if (feature.properties.clasificacion) {
+                    popupContent = popupContent + `<br>${feature.properties.clasificacion}`;
+                }
+                if (feature.properties.telefono) {
+                    popupContent = popupContent + `<br>${feature.properties.telefono}`;
+                }
+                if (feature.properties.url1) {
+                   popupContenido = popupContenido + `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
+                }
+                if (feature.properties.url2) {
+                    popupContenido = popupContenido + `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
+                }
+                popupContent += `<hr>`;
+            });
+            popupContent += '</div>';
+
+            // Paginación
+            const totalPages = Math.ceil(featuresInSameLocation.length / itemsPerPage);
+            if (totalPages > 1) {
+                popupContent += `<div class="pagination">`;
+                if (page > 0) {
+                    popupContent += `<button onclick="changePage(${page - 1})">Anterior</button>`;
+                }
+                if (page < totalPages - 1) {
+                    popupContent += `<button onclick="changePage(${page + 1})">Siguiente</button>`;
+                }
+                popupContent += `</div>`;
+            }
+    
+            clickedLayer.bindPopup(popupContent).openPopup();
+        }
+    
+        function changePage(page) {
+            currentPage = page;
+            renderPage(currentPage);
+        }
+    
+        renderPage(currentPage);
+    }
     
     
     L.control.layers(baseMaps).addTo(map);
