@@ -195,16 +195,16 @@ document.addEventListener('DOMContentLoaded', function() {
             itemsToShow.forEach(feature => {
                 popupContent += `<strong>${feature.properties.nombre || 'Sin nombre'}</strong>`;
                 if (feature.properties.clasificacion) {
-                    popupContent = popupContent + `<br>${feature.properties.clasificacion}`;
+                    popupContent += `<br>${feature.properties.clasificacion}`;
                 }
                 if (feature.properties.telefono) {
-                    popupContent = popupContent + `<br>${feature.properties.telefono}`;
+                    popupContent += `<br>${feature.properties.telefono}`;
                 }
                 if (feature.properties.url1) {
-                   popupContenido = popupContenido + `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
+                   popupContent += `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
                 }
                 if (feature.properties.url2) {
-                    popupContenido = popupContenido + `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
+                    popupContent += `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
                 }
                 popupContent += `<hr>`;
             });
