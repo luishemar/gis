@@ -163,12 +163,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Añadir la capa GeoJSON al mapa
                 L.geoJSON(data, {
                     pointToLayer: function (feature, latlng) {
-                        // Obtener el icono según la clasificación
                         const icon = iconMap[feature.properties.clasificacion] || iconMap['default'];
                         return L.marker(latlng, { icon: icon });
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('click', function() {
+                            // Cerrar cualquier popup abierto
+                            map.closePopup();
+                
+                            // Mostrar el popup para el feature clicado
                             mostrarPopupPaginado(feature, layer);
                         });
                     }
@@ -177,66 +180,64 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error al cargar el archivo GeoJSON:', error));
     }
 
-function mostrarPopupPaginado(clickedFeature, clickedLayer) {
-    const featuresInSameLocation = geojsonFeatures.filter(feature => {
-        return feature.geometry.coordinates[0] === clickedFeature.geometry.coordinates[0] &&
-            feature.geometry.coordinates[1] === clickedFeature.geometry.coordinates[1];
-    });
-
-    const itemsPerPage = 3; // Número de items por página
-    let currentPage = 0;
-
-    function renderPage(page) {
-        const start = page * itemsPerPage;
-        const end = start + itemsPerPage;
-        const itemsToShow = featuresInSameLocation.slice(start, end);
-
-        let popupContent = '<div>';
-        itemsToShow.forEach(feature => {
-            popupContent += `<strong>${feature.properties.nombre || 'Sin nombre'}</strong>`;
-            if (feature.properties.clasificacion) {
-                popupContent += `<br>${feature.properties.clasificacion}`;
-            }
-            if (feature.properties.telefono) {
-                popupContent += `<br>${feature.properties.telefono}`;
-            }
-            if (feature.properties.url1) {
-                popupContent += `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
-            }
-            if (feature.properties.url2) {
-                popupContent += `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
-            }
-            popupContent += `<hr>`;
+    function mostrarPopupPaginado(clickedFeature, clickedLayer) {
+        const featuresInSameLocation = geojsonFeatures.filter(feature => {
+            return feature.geometry.coordinates[0] === clickedFeature.geometry.coordinates[0] &&
+                feature.geometry.coordinates[1] === clickedFeature.geometry.coordinates[1];
         });
-        popupContent += '</div>';
-
-        // Paginación
-        const totalPages = Math.ceil(featuresInSameLocation.length / itemsPerPage);
-        if (totalPages > 1) {
-            popupContent += `<div class="pagination">`;
-            if (page > 0) {
-                popupContent += `<button onclick="changePage(${page - 1})">Anterior</button>`;
+    
+        const itemsPerPage = 3; // Número de items por página
+        let currentPage = 0;
+    
+        function renderPage(page) {
+            const start = page * itemsPerPage;
+            const end = start + itemsPerPage;
+            const itemsToShow = featuresInSameLocation.slice(start, end);
+    
+            let popupContent = '<div>';
+            itemsToShow.forEach(feature => {
+                popupContent += `<strong>${feature.properties.nombre || 'Sin nombre'}</strong>`;
+                if (feature.properties.clasificacion) {
+                    popupContent += `<br>${feature.properties.clasificacion}`;
+                }
+                if (feature.properties.telefono) {
+                    popupContent += `<br>${feature.properties.telefono}`;
+                }
+                if (feature.properties.url1) {
+                    popupContent += `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
+                }
+                if (feature.properties.url2) {
+                    popupContent += `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
+                }
+                popupContent += `<hr>`;
+            });
+            popupContent += '</div>';
+    
+            // Paginación
+            const totalPages = Math.ceil(featuresInSameLocation.length / itemsPerPage);
+            if (totalPages > 1) {
+                popupContent += `<div class="pagination">`;
+                if (page > 0) {
+                    popupContent += `<button onclick="changePage(${page - 1})">Anterior</button>`;
+                }
+                if (page < totalPages - 1) {
+                    popupContent += `<button onclick="changePage(${page + 1})">Siguiente</button>`;
+                }
+                popupContent += `</div>`;
             }
-            if (page < totalPages - 1) {
-                popupContent += `<button onclick="changePage(${page + 1})">Siguiente</button>`;
-            }
-            popupContent += `</div>`;
+    
+            // Cerrar el popup actual antes de abrir uno nuevo
+            clickedLayer.bindPopup(popupContent).openPopup();
         }
-
-        // Cerrar el popup actual antes de abrir uno nuevo
-        map.closePopup(); // Cierra cualquier popup abierto
-
-        clickedLayer.bindPopup(popupContent).openPopup();
-    }
-
-    function changePage(page) {
-        currentPage = page;
+    
+        function changePage(page) {
+            currentPage = page;
+            renderPage(currentPage);
+        }
+    
         renderPage(currentPage);
     }
 
-    renderPage(currentPage);
-}
-    
     
     L.control.layers(baseMaps).addTo(map);
     
