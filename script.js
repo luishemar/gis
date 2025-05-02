@@ -177,62 +177,65 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error al cargar el archivo GeoJSON:', error));
     }
 
-    function mostrarPopupPaginado(clickedFeature, clickedLayer) {
-        const featuresInSameLocation = geojsonFeatures.filter(feature => {
-            return feature.geometry.coordinates[0] === clickedFeature.geometry.coordinates[0] &&
-                feature.geometry.coordinates[1] === clickedFeature.geometry.coordinates[1];
-        });
-    
-        const itemsPerPage = 3; // Número de items por página
-        let currentPage = 0;
-    
-        function renderPage(page) {
-            const start = page * itemsPerPage;
-            const end = start + itemsPerPage;
-            const itemsToShow = featuresInSameLocation.slice(start, end);
-    
-            let popupContent = '<div>';
-            itemsToShow.forEach(feature => {
-                popupContent += `<strong>${feature.properties.nombre || 'Sin nombre'}</strong>`;
-                if (feature.properties.clasificacion) {
-                    popupContent += `<br>${feature.properties.clasificacion}`;
-                }
-                if (feature.properties.telefono) {
-                    popupContent += `<br>${feature.properties.telefono}`;
-                }
-                if (feature.properties.url1) {
-                   popupContent += `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
-                }
-                if (feature.properties.url2) {
-                    popupContent += `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
-                }
-                popupContent += `<hr>`;
-            });
-            popupContent += '</div>';
+function mostrarPopupPaginado(clickedFeature, clickedLayer) {
+    const featuresInSameLocation = geojsonFeatures.filter(feature => {
+        return feature.geometry.coordinates[0] === clickedFeature.geometry.coordinates[0] &&
+            feature.geometry.coordinates[1] === clickedFeature.geometry.coordinates[1];
+    });
 
-            // Paginación
-            const totalPages = Math.ceil(featuresInSameLocation.length / itemsPerPage);
-            if (totalPages > 1) {
-                popupContent += `<div class="pagination">`;
-                if (page > 0) {
-                    popupContent += `<button onclick="changePage(${page - 1})">Anterior</button>`;
-                }
-                if (page < totalPages - 1) {
-                    popupContent += `<button onclick="changePage(${page + 1})">Siguiente</button>`;
-                }
-                popupContent += `</div>`;
+    const itemsPerPage = 3; // Número de items por página
+    let currentPage = 0;
+
+    function renderPage(page) {
+        const start = page * itemsPerPage;
+        const end = start + itemsPerPage;
+        const itemsToShow = featuresInSameLocation.slice(start, end);
+
+        let popupContent = '<div>';
+        itemsToShow.forEach(feature => {
+            popupContent += `<strong>${feature.properties.nombre || 'Sin nombre'}</strong>`;
+            if (feature.properties.clasificacion) {
+                popupContent += `<br>${feature.properties.clasificacion}`;
             }
-    
-            clickedLayer.bindPopup(popupContent).openPopup();
+            if (feature.properties.telefono) {
+                popupContent += `<br>${feature.properties.telefono}`;
+            }
+            if (feature.properties.url1) {
+                popupContent += `<br><a href="${feature.properties.url1}" target="_blank">URL1</a>`;
+            }
+            if (feature.properties.url2) {
+                popupContent += `<br><a href="${feature.properties.url2}" target="_blank">URL2</a>`;
+            }
+            popupContent += `<hr>`;
+        });
+        popupContent += '</div>';
+
+        // Paginación
+        const totalPages = Math.ceil(featuresInSameLocation.length / itemsPerPage);
+        if (totalPages > 1) {
+            popupContent += `<div class="pagination">`;
+            if (page > 0) {
+                popupContent += `<button onclick="changePage(${page - 1})">Anterior</button>`;
+            }
+            if (page < totalPages - 1) {
+                popupContent += `<button onclick="changePage(${page + 1})">Siguiente</button>`;
+            }
+            popupContent += `</div>`;
         }
-    
-        function changePage(page) {
-            currentPage = page;
-            renderPage(currentPage);
-        }
-    
+
+        // Cerrar el popup actual antes de abrir uno nuevo
+        map.closePopup(); // Cierra cualquier popup abierto
+
+        clickedLayer.bindPopup(popupContent).openPopup();
+    }
+
+    function changePage(page) {
+        currentPage = page;
         renderPage(currentPage);
     }
+
+    renderPage(currentPage);
+}
     
     
     L.control.layers(baseMaps).addTo(map);
