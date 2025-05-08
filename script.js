@@ -181,12 +181,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function mostrarPopupPaginado(clickedFeature, clickedLayer) {
+        
         const featuresInSameLocation = geojsonFeatures.filter(feature => {
             return feature.geometry.coordinates[0] === clickedFeature.geometry.coordinates[0] &&
                 feature.geometry.coordinates[1] === clickedFeature.geometry.coordinates[1];
         });
     
-        const itemsPerPage = 3; // Número de items por página
+        const itemsPerPage = 3;
         let currentPage = 0;
     
         function renderPage(page) {
@@ -213,30 +214,36 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             popupContent += '</div>';
     
-            // Paginación
             const totalPages = Math.ceil(featuresInSameLocation.length / itemsPerPage);
             if (totalPages > 1) {
                 popupContent += `<div class="pagination">`;
                 if (page > 0) {
-                    popupContent += `<button onclick="changePage(${page - 1})">Anterior</button>`;
+                    popupContent += `<button class="pagination-btn" data-page="${page - 1}">Anterior</button>`;
                 }
                 if (page < totalPages - 1) {
-                    popupContent += `<button onclick="changePage(${page + 1})">Siguiente</button>`;
+                    popupContent += `<button class="pagination-btn" data-page="${page + 1}">Siguiente</button>`;
                 }
                 popupContent += `</div>`;
             }
     
-            // Cerrar el popup actual antes de abrir uno nuevo
             clickedLayer.bindPopup(popupContent).openPopup();
-        }
     
-        function changePage(page) {
-            currentPage = page;
-            renderPage(currentPage);
+            // Esperar a que el popup se abra antes de añadir eventos
+            clickedLayer.once('popupopen', () => {
+                const buttons = document.querySelectorAll('.pagination-btn');
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const newPage = parseInt(e.target.getAttribute('data-page'), 10);
+                        currentPage = newPage;
+                        renderPage(currentPage);
+                    });
+                });
+            });
         }
     
         renderPage(currentPage);
     }
+
 
     
     L.control.layers(baseMaps).addTo(map);
